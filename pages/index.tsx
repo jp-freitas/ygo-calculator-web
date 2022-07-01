@@ -1,5 +1,6 @@
 import { Flex, Container, NumberInput, NumberInputField, Heading, Box, Text, ButtonGroup, Button, Spacer, Center, useToast } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { Howl } from 'howler';
 
 //https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3
 
@@ -9,6 +10,17 @@ export default function Home() {
   const [active, setActive] = useState(false);
   const [paused, setPaused] = useState(true);
   const toast = useToast();
+  const audioClips = [
+    { sound: 'https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3', label: 'Fire Pager' }
+  ];
+
+  function playAudio() {
+    const sound = new Howl({
+      src: audioClips.map(item => item.sound),
+      html5: true,
+    });
+    sound.play();
+  }
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
@@ -32,6 +44,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       case 1199990:
         toast({
@@ -39,6 +52,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       case 599990:
         toast({
@@ -46,6 +60,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       case 299990:
         toast({
@@ -53,6 +68,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       case 119990:
         toast({
@@ -60,6 +76,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       case 10:
         toast({
@@ -67,6 +84,7 @@ export default function Home() {
           status: 'success',
           duration: 2000,
         });
+        playAudio();
         break;
       default:
         break;
