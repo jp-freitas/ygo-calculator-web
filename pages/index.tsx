@@ -144,14 +144,14 @@ export default function Home() {
           direction={"column"}
         >
           <Heading color={"#fff"} m={"1rem 0 1rem 0"}>
-            Contador Torneio
+            Timer
           </Heading>
           <Spacer />
           <Box>
             <Text color={"#fff"} fontSize={"2.4rem"}>
               {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
               {("0" + Math.floor((time / 1000) % 60)).slice(-2)}:
-              {("0" + ((time / 10) % 100)).slice(-2)}
+              {("0" + Math.floor((time / 10) % 100)).slice(-2)}
             </Text>
           </Box>
           <Spacer />
