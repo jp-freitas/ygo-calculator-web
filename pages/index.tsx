@@ -1,8 +1,6 @@
 import {
   Flex,
   Container,
-  NumberInput,
-  NumberInputField,
   Heading,
   Box,
   Text,
@@ -14,34 +12,52 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Howl } from "howler";
-
-//https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3
+import { differenceInMilliseconds } from 'date-fns';
 
 export default function Home() {
-  const [time, setTime] = useState(60000);
-  const [active, setActive] = useState(false);
-  const [paused, setPaused] = useState(true);
+  const [time, setTime] = useState(2400000)
+  const [active, setActive] = useState(false)
+  const [initialDate, setInititalDate] = useState<Date>(new Date())
+  const [millisecondsPassed, setMillisecondsPassed] = useState(() => {
+    if (active) {
+      differenceInMilliseconds(new Date(), new Date(initialDate))
+    }
+    return 0;
+  })
+  const currentMilliseconds = active ? time - millisecondsPassed : 2400000;
+
   const toast = useToast();
-  const audioClips = [
-    {
-      sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
-      label: "Fire Pager",
-    },
-  ];
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
 
-    if (active && paused === false) {
-      interval = setTimeout(() => {
-        setTime((time) => time - 10);
-      }, 7.5555);
+    const audioClips = [
+      {
+        sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
+        label: "Fire Pager",
+      },
+    ];
+    function playAudio() {
+      const sound = new Howl({
+        src: audioClips.map((item) => item.sound),
+        html5: true,
+      });
+      sound.play();
     }
-    if (time < 0) {
-      clearInterval(interval);
-      setTime(60000);
-      setActive(!active);
-      setPaused(!paused);
+    
+    if (active) {
+      interval = setInterval(() => {
+        const millisecondsDifference = differenceInMilliseconds(
+          new Date(),
+          new Date(initialDate),
+        )
+        if (millisecondsDifference >= time) {
+          setTime(2400000)
+          clearInterval(interval)
+        } else {
+          setMillisecondsPassed(millisecondsDifference)
+        }
+      }, 10)
     }
 
     switch (time) {
@@ -100,37 +116,18 @@ export default function Home() {
     return () => {
       clearInterval(interval);
     };
-  }, [active, paused, time, toast]);
-
-  function playAudio() {
-    const sound = new Howl({
-      src: audioClips.map((item) => item.sound),
-      html5: true,
-    });
-    sound.play();
-  }
+  }, [active, time, toast, initialDate]);
 
   function handleStart() {
-    if (time === 0) {
-      toast({
-        title: "Insira um número",
-        status: "error",
-        duration: 3000,
-      });
-      return;
-    } else {
-      setActive(true);
-      setPaused(false);
-    }
+    const startedDate = new Date();
+    setInititalDate(startedDate);
+    setMillisecondsPassed(0);
+    setActive(true);
   }
 
   function handleReset() {
-    setTime(60000);
+    setTime(2400000);
     setActive(!active);
-  }
-
-  function togglePauseButton() {
-    setPaused(!paused);
   }
 
   return (
@@ -149,20 +146,17 @@ export default function Home() {
           <Spacer />
           <Box>
             <Text color={"#fff"} fontSize={"2.4rem"}>
-              {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
-              {("0" + Math.floor((time / 1000) % 60)).slice(-2)}:
-              {("0" + Math.floor((time / 10) % 100)).slice(-2)}
+              {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
+              {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
+              {("0" + Math.floor((currentMilliseconds/ 10) % 100)).slice(-2)}
             </Text>
           </Box>
           <Spacer />
           <ButtonGroup w={"90%"}>
             {active ? (
               <>
-                <Button w="50%" onClick={() => handleReset()}>
+                <Button w="100%" onClick={() => handleReset()}>
                   Reiniciar
-                </Button>
-                <Button w="50%" onClick={togglePauseButton}>
-                  {paused ? "Continuar" : "Pausar"}
                 </Button>
               </>
             ) : (
