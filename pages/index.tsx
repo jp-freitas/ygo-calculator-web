@@ -28,22 +28,22 @@ export default function Home() {
 
   const toast = useToast();
 
+  const audioClips = [
+    {
+      sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
+      label: "Fire Pager",
+    },
+  ];
+  function playAudio() {
+    const sound = new Howl({
+      src: audioClips.map((item) => item.sound),
+      html5: true,
+    });
+    sound.play();
+  }
+
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
-
-    const audioClips = [
-      {
-        sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
-        label: "Fire Pager",
-      },
-    ];
-    function playAudio() {
-      const sound = new Howl({
-        src: audioClips.map((item) => item.sound),
-        html5: true,
-      });
-      sound.play();
-    }
     
     if (active) {
       interval = setInterval(() => {
@@ -60,7 +60,7 @@ export default function Home() {
       }, 10)
     }
 
-    switch (time) {
+    switch (currentMilliseconds) {
       case 1799990:
         toast({
           title: "Faltam 30 Minutos",
@@ -116,7 +116,7 @@ export default function Home() {
     return () => {
       clearInterval(interval);
     };
-  }, [active, time, toast, initialDate]);
+  }, [active, currentMilliseconds, toast, initialDate]);
 
   function handleStart() {
     const startedDate = new Date();
