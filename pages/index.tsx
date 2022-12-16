@@ -17,6 +17,7 @@ import { differenceInMilliseconds } from 'date-fns';
 export default function Home() {
   const [time, setTime] = useState(2400000)
   const [active, setActive] = useState(false)
+  const [paused, setPaused] = useState(true)
   const [initialDate, setInititalDate] = useState<Date>(new Date())
   const [millisecondsPassed, setMillisecondsPassed] = useState(() => {
     if (active) {
@@ -28,24 +29,25 @@ export default function Home() {
 
   const toast = useToast();
 
+  const audioClips = [
+    {
+      sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
+      label: "Fire Pager",
+    },
+  ];
+
+  function playAudio() {
+    const sound = new Howl({
+      src: audioClips.map((item) => item.sound),
+      html5: true,
+    });
+    sound.play();
+  }
+
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
 
-    const audioClips = [
-      {
-        sound: "https://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3",
-        label: "Fire Pager",
-      },
-    ];
-    function playAudio() {
-      const sound = new Howl({
-        src: audioClips.map((item) => item.sound),
-        html5: true,
-      });
-      sound.play();
-    }
-    
-    if (active) {
+    if (active && !paused) {
       interval = setInterval(() => {
         const millisecondsDifference = differenceInMilliseconds(
           new Date(),
@@ -53,14 +55,17 @@ export default function Home() {
         )
         if (millisecondsDifference >= time) {
           setTime(2400000)
+          setActive(!active)
           clearInterval(interval)
         } else {
           setMillisecondsPassed(millisecondsDifference)
         }
       }, 10)
+    } else {
+      clearInterval(interval)
     }
 
-    switch (time) {
+    switch (currentMilliseconds) {
       case 1799990:
         toast({
           title: "Faltam 30 Minutos",
@@ -116,13 +121,18 @@ export default function Home() {
     return () => {
       clearInterval(interval);
     };
-  }, [active, time, toast, initialDate]);
+  }, [active, time, toast, initialDate, paused, millisecondsPassed, currentMilliseconds]);
 
   function handleStart() {
     const startedDate = new Date();
     setInititalDate(startedDate);
     setMillisecondsPassed(0);
     setActive(true);
+    setPaused(false)
+  }
+
+  function togglePauseButton() {
+    setPaused(!paused);
   }
 
   function handleReset() {
@@ -148,15 +158,18 @@ export default function Home() {
             <Text color={"#fff"} fontSize={"2.4rem"}>
               {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
               {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
-              {("0" + Math.floor((currentMilliseconds/ 10) % 100)).slice(-2)}
+              {("0" + Math.floor((currentMilliseconds / 10) % 100)).slice(-2)}
             </Text>
           </Box>
           <Spacer />
           <ButtonGroup w={"90%"}>
             {active ? (
               <>
-                <Button w="100%" onClick={() => handleReset()}>
+                <Button w="50%" onClick={() => handleReset()}>
                   Reiniciar
+                </Button>
+                <Button w="50%" onClick={() => togglePauseButton()}>
+                  {paused ? "Continuar" : "Pausar"}
                 </Button>
               </>
             ) : (
