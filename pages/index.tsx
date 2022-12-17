@@ -35,10 +35,7 @@ export default function Home() {
       label: "Fire Pager",
     },
   ];
-<<<<<<< HEAD
-
-=======
->>>>>>> edf91ee19496a9447f6c2495f2458db7ba0a12ab
+  
   function playAudio() {
     const sound = new Howl({
       src: audioClips.map((item) => item.sound),
@@ -49,13 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
-<<<<<<< HEAD
-
     if (active && !paused) {
-=======
-    
-    if (active) {
->>>>>>> edf91ee19496a9447f6c2495f2458db7ba0a12ab
       interval = setInterval(() => {
         const millisecondsDifference = differenceInMilliseconds(
           new Date(),
@@ -129,11 +120,7 @@ export default function Home() {
     return () => {
       clearInterval(interval);
     };
-<<<<<<< HEAD
   }, [active, time, toast, initialDate, paused, millisecondsPassed, currentMilliseconds]);
-=======
-  }, [active, currentMilliseconds, toast, initialDate]);
->>>>>>> edf91ee19496a9447f6c2495f2458db7ba0a12ab
 
   function handleStart() {
     const startedDate = new Date();
