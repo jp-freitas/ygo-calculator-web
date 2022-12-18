@@ -19,12 +19,8 @@ export default function Home() {
   const [active, setActive] = useState(false)
   const [paused, setPaused] = useState(true)
   const [initialDate, setInititalDate] = useState<Date>(new Date())
-  const [millisecondsPassed, setMillisecondsPassed] = useState(() => {
-    if (active) {
-      differenceInMilliseconds(new Date(), new Date(initialDate))
-    }
-    return 0;
-  })
+  const [pausedDate, setPausedDate] = useState<Date>(new Date())
+  const [millisecondsPassed, setMillisecondsPassed] = useState(0)
   const currentMilliseconds = active ? time - millisecondsPassed : 2400000;
 
   const toast = useToast();
@@ -46,12 +42,13 @@ export default function Home() {
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
+    
     if (active && !paused) {
       interval = setInterval(() => {
         const millisecondsDifference = differenceInMilliseconds(
           new Date(),
           new Date(initialDate),
-        )
+        );
         if (millisecondsDifference >= time) {
           setTime(2400000)
           setActive(!active)
@@ -62,7 +59,7 @@ export default function Home() {
       }, 10)
     } else {
       clearInterval(interval)
-    }
+    } 
 
     switch (currentMilliseconds) {
       case 1799990:
@@ -120,7 +117,7 @@ export default function Home() {
     return () => {
       clearInterval(interval);
     };
-  }, [active, time, toast, initialDate, paused, millisecondsPassed, currentMilliseconds]);
+  }, [active, time, toast, initialDate, paused, millisecondsPassed, currentMilliseconds, ]);
 
   function handleStart() {
     const startedDate = new Date();
@@ -132,6 +129,7 @@ export default function Home() {
 
   function togglePauseButton() {
     setPaused(!paused);
+    setPausedDate(new Date())
   }
 
   function handleReset() {
