@@ -1,8 +1,8 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Center, ChakraProps, Text } from "@chakra-ui/react";
 import { differenceInMilliseconds } from "date-fns";
 import { useEffect, useState } from "react";
 
-export default function Stopwatch() {
+export default function Stopwatch({ ...props }: ChakraProps) {
   const [time, setTime] = useState(2400000)
   const [active, setActive] = useState(false)
   const [initialDate, setInititalDate] = useState<Date>(new Date())

@@ -1,4 +1,5 @@
-import { Box, Button, ButtonGroup, Center, Container, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Center, Container, Heading, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { ArrowCounterClockwise, ArrowUUpLeft, CaretLeft, CaretRight, Divide, Equals, Minus, NumberEight, NumberFive, NumberFour, NumberNine, NumberOne, NumberSeven, NumberSix, NumberThree, NumberTwo, NumberZero, Plus, Queue } from 'phosphor-react'
 import Stopwatch from "../components/stopwatch";
 
@@ -10,8 +11,15 @@ export default function Calculator() {
 
   return (
     <Container maxW={"100vw"} h={"100vh"} display={"flex"} p={2} alignItems={"center"} justifyContent={"space-between"} flexDirection={"column"} bg={"gray.900"}>
-      <Stopwatch />
-      <Center gap={2} w={"100%"} h={"100%"}>
+      <Center w={"100%"} gap={2} alignItems={"center"} justifyContent={"space-evenly"}>
+        <Box ml={"0"} mr={"5"}>
+          <Link href="/">
+            <CaretLeft weight="bold" size={24} color={"#fff"} />
+          </Link>
+        </Box>
+        <Stopwatch w={"100%"} />
+      </Center>
+      <Center gap={2} w={"100%"}>
         <Heading w={"100%"} m={"0.65rem 0 0.65rem 0"} display={"flex"} flexDirection={"column"}>
           <Text color={"gray.400"} alignSelf={"start"}>{playerOne}</Text>
           <Text color={"gray.50"} alignSelf={"start"}>{playerOneLP}</Text>
@@ -24,7 +32,7 @@ export default function Calculator() {
       <Center w={"100%"} h={"100%"} gap={2} flexDirection={"column"}>
         <ButtonGroup w={"100%"} h={"100%"}>
           <Button w={"100%"} h={"100%"} bg={"blackAlpha.900"} color={"gray.400"}>
-            <CaretLeft weight="bold" size={24} />
+            <CaretLeft weight="fill" size={24} />
           </Button>
           <Button w={"100%"} h={"100%"} bg={"blackAlpha.900"} color={"gray.400"}>
             <Plus weight="bold" size={24} />
@@ -33,7 +41,7 @@ export default function Calculator() {
             <Minus weight="bold" size={24} />
           </Button>
           <Button w={"100%"} h={"100%"} bg={"blackAlpha.900"} color={"gray.400"}>
-            <CaretRight weight="bold" size={24} />
+            <CaretRight weight="fill" size={24} />
           </Button>
         </ButtonGroup>
         <ButtonGroup w={"100%"} h={"100%"}>

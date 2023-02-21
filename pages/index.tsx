@@ -14,7 +14,7 @@ export default function Home() {
           Calculadora
         </Heading>
         <Link href="/calculator">
-          Começar duelo
+          <Button w={"100%"}>Começar Duelo</Button>
         </Link>
       </Flex>
     </Container>
