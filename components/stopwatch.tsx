@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Center, Container, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
+import { Center, Text } from "@chakra-ui/react";
 import { differenceInMilliseconds } from "date-fns";
 import { useEffect, useState } from "react";
 
@@ -35,55 +35,13 @@ export default function Stopwatch() {
     };
   }, [active, time, initialDate, millisecondsPassed, currentMilliseconds,]);
 
-  function handleStart() {
-    const startedDate = new Date();
-    setInititalDate(startedDate);
-    setMillisecondsPassed(0);
-    setActive(true);
-  }
-
-  function handleReset() {
-    setTime(2400000);
-    setActive(!active);
-  }
-
   return (
-    <Container minW={"100vw"} minH={"100vh"} p={"0"} bg={"gray.900"}>
-      <Center>
-        <Flex
-          gap={"16"}
-          alignItems={"center"}
-          w={"30em"}
-          minHeight={"100%"}
-          direction={"column"}
-        >
-          <Heading color={"#fff"} m={"1rem 0 1rem 0"}>
-            Timer
-          </Heading>
-          <Spacer />
-          <Box>
-            <Text color={"#fff"} fontSize={"2.4rem"}>
-              {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
-              {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
-              {("0" + Math.floor((currentMilliseconds / 10) % 100)).slice(-2)}
-            </Text>
-          </Box>
-          <Spacer />
-          <ButtonGroup w={"90%"}>
-            {active ? (
-              <>
-                <Button w="100%" onClick={() => handleReset()}>
-                  Reiniciar
-                </Button>
-              </>
-            ) : (
-              <Button w="100%" onClick={handleStart}>
-                Iniciar
-              </Button>
-            )}
-          </ButtonGroup>
-        </Flex>
-      </Center>
-    </Container>
+    <Center>
+      <Text color={"#fff"} fontSize={"2.4rem"}>
+        {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
+        {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
+        {("0" + Math.floor((currentMilliseconds / 10) % 100)).slice(-2)}
+      </Text>
+    </Center>
   );
 }
