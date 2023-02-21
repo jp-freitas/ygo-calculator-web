@@ -6,7 +6,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { Calculator } from "./calculator";
+import Calculator from "./calculator";
 
 export default function Home() {
   return (
