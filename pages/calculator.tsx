@@ -30,7 +30,7 @@ import {
   Queue
 } from "phosphor-react";
 import { useState } from "react";
-import Stopwatch from "./components/stopwatch";
+import Stopwatch from "../src/components/stopwatch";
 
 export default function Calculator() {
   const [playerOneLP, setPlayerOneLP] = useState(8000);
