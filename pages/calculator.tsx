@@ -91,9 +91,9 @@ export default function Calculator() {
         justifyContent={"space-evenly"}
       >
         <Box ml={"0"} mr={"5"}>
-          {/* <Link href="/">
+          <Link href="/">
             <CaretLeft weight="bold" size={24} color={"#fff"} />
-          </Link> */}
+          </Link>
         </Box>
         <Stopwatch w={"100%"} />
       </Center>
