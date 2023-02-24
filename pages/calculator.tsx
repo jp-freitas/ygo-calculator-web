@@ -43,6 +43,11 @@ export default function Calculator() {
     setCalculate("");
   }
 
+  function ResetLP() {
+    setPlayerOneLP(8000)
+    setPlayerTwoLP(8000)
+  }
+  
   function AddExpression(signal: string) {
     let valueToCalculate = calculate;
     setCalculate((signal += valueToCalculate));
@@ -51,6 +56,12 @@ export default function Calculator() {
   function AddNumber(value: string) {
     let valueToCalculate = calculate;
     setCalculate((valueToCalculate += value));
+  }
+  
+  function Calculate() {
+    const result = `${playerOneLP}${calculate}`
+    Reset()
+    setPlayerOneLP(eval(result))
   }
 
   return (
@@ -298,7 +309,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={Reset}
+            onClick={ResetLP}
           >
             <ArrowCounterClockwise weight="bold" size={24} />
           </Button>
