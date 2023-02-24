@@ -320,6 +320,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
+            onClick={Calculate}
           >
             <Equals weight="bold" size={24} />
           </Button>
