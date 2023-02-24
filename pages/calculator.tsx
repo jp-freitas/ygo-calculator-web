@@ -33,21 +33,26 @@ import { useState } from "react";
 import Stopwatch from "../components/stopwatch";
 
 export default function Calculator() {
+  const [playerSelected, setPlayerSelected] = useState(1);
   const [playerOneLP, setPlayerOneLP] = useState(8000);
   const [playerTwoLP, setPlayerTwoLP] = useState(8000);
   const [calculate, setCalculate] = useState("");
   const playerOne = "João Pedro";
   const playerTwo = "Alex";
 
+  function togglePlayerSelected(player: number) {
+    setPlayerSelected(player);
+  }
+
   function Reset() {
     setCalculate("");
   }
 
   function ResetLP() {
-    setPlayerOneLP(8000)
-    setPlayerTwoLP(8000)
+    setPlayerOneLP(8000);
+    setPlayerTwoLP(8000);
   }
-  
+
   function AddExpression(signal: string) {
     let valueToCalculate = calculate;
     setCalculate((signal += valueToCalculate));
@@ -57,11 +62,15 @@ export default function Calculator() {
     let valueToCalculate = calculate;
     setCalculate((valueToCalculate += value));
   }
-  
+
   function Calculate() {
-    const result = `${playerOneLP}${calculate}`
-    Reset()
-    setPlayerOneLP(eval(result))
+    const result = `${
+      playerSelected === 1 ? playerOneLP : playerTwoLP
+    }${calculate}`;
+    Reset();
+    playerSelected === 1
+      ? setPlayerOneLP(eval(result))
+      : setPlayerTwoLP(eval(result));
   }
 
   return (
@@ -82,9 +91,9 @@ export default function Calculator() {
         justifyContent={"space-evenly"}
       >
         <Box ml={"0"} mr={"5"}>
-          <Link href="/">
+          {/* <Link href="/">
             <CaretLeft weight="bold" size={24} color={"#fff"} />
-          </Link>
+          </Link> */}
         </Box>
         <Stopwatch w={"100%"} />
       </Center>
@@ -95,7 +104,10 @@ export default function Calculator() {
           display={"flex"}
           flexDirection={"column"}
         >
-          <Text color={"gray.400"} alignSelf={"start"}>
+          <Text
+            color={`${playerSelected === 1 ? "#fff" : "gray.400"}`}
+            alignSelf={"start"}
+          >
             {playerOne}
           </Text>
           <Text color={"gray.50"} alignSelf={"start"}>
@@ -108,7 +120,10 @@ export default function Calculator() {
           display={"flex"}
           flexDirection={"column"}
         >
-          <Text color={"gray.400"} alignSelf={"end"}>
+          <Text
+            color={`${playerSelected === 2 ? "#fff" : "gray.400"}`}
+            alignSelf={"end"}
+          >
             {playerTwo}
           </Text>
           <Text color={"gray.50"} alignSelf={"end"}>
@@ -132,6 +147,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
+            onClick={() => togglePlayerSelected(1)}
           >
             <CaretLeft weight="fill" size={24} />
           </Button>
@@ -158,6 +174,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
+            onClick={() => togglePlayerSelected(2)}
           >
             <CaretRight weight="fill" size={24} />
           </Button>
