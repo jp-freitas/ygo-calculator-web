@@ -37,7 +37,7 @@ export default function Calculator() {
   const [playerSelected, setPlayerSelected] = useState(1);
   const [playerOneLP, setPlayerOneLP] = useState(8000);
   const [playerTwoLP, setPlayerTwoLP] = useState(8000);
-  const [calculate, setCalculate] = useState("0");
+  const [calculate, setCalculate] = useState("");
   const playerOne = "João Pedro";
   const playerTwo = "Alex";
 
@@ -67,12 +67,16 @@ export default function Calculator() {
     const matches = calculate.match(/([-+]?)(\d+)/)
     switch (matches?.[1]) {
       case "+":
-        playerSelected === 1 ? setPlayerOneLP(Number(matches?.[2]) + playerOneLP) : setPlayerTwoLP(Number(matches?.[2]) + playerTwoLP)
+        const sumResult = playerSelected === 1 ? Number(matches?.[2]) + playerOneLP : Number(matches?.[2]) + playerTwoLP
+        playerSelected === 1 ? setPlayerOneLP(sumResult) : setPlayerTwoLP(sumResult)
         break;
       case "-":
-        playerSelected === 1 ? setPlayerOneLP(playerOneLP - Number(matches?.[2])) : setPlayerTwoLP(playerTwoLP - Number(matches?.[2]))
+        const subtractResult = playerSelected === 1 ? playerOneLP - Number(matches?.[2]) : playerTwoLP - Number(matches?.[2]);
+        const nonNegativeResult = Math.max(subtractResult, 0);
+        playerSelected === 1 ? setPlayerOneLP(nonNegativeResult) : setPlayerTwoLP(nonNegativeResult)
         break;
       default:
+        alert("Por favor selecione uma expressão")
         break;
     }
     Reset()
