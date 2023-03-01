@@ -36,9 +36,14 @@ export default function Stopwatch({ ...props }: ChakraProps) {
     };
   }, [active, time, initialDate, millisecondsPassed, currentMilliseconds,]);
 
+  function Start() {
+    setActive(!active)
+    setInititalDate(new Date())
+  }
+
   return (
     <Flex align={"center"} justify={"space-between"} w={"100%"}>
-      <Text color={"#fff"} fontSize={"2.4rem"} ml="6">
+      <Text color={"#fff"} fontSize={"2.4rem"} ml="16">
         {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
         {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
         {("0" + Math.floor((currentMilliseconds / 10) % 100)).slice(-2)}
@@ -47,16 +52,10 @@ export default function Stopwatch({ ...props }: ChakraProps) {
         <Button
           bg={"blackAlpha.900"}
           color={"gray.400"}
-          onClick={() => { /** Starts the counter */ }}
+          onClick={Start}
+          disabled={active}
         >
           <Play weight="bold" size={24} />
-        </Button>
-        <Button
-          bg={"blackAlpha.900"}
-          color={"gray.400"}
-          onClick={() => { /** Reset the counter */ }}
-        >
-          <ArrowCounterClockwise weight="bold" size={24} />
         </Button>
       </ButtonGroup>
     </Flex>
