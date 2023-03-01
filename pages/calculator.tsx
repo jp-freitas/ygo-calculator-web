@@ -37,8 +37,7 @@ export default function Calculator() {
   const [playerSelected, setPlayerSelected] = useState(1);
   const [playerOneLP, setPlayerOneLP] = useState(8000);
   const [playerTwoLP, setPlayerTwoLP] = useState(8000);
-  const [expression, setExpression] = useState("");
-  const [calculate, setCalculate] = useState(0);
+  const [calculate, setCalculate] = useState("0");
   const playerOne = "João Pedro";
   const playerTwo = "Alex";
 
@@ -47,8 +46,7 @@ export default function Calculator() {
   }
 
   function Reset() {
-    setExpression("");
-    setCalculate(0);
+    setCalculate("");
   }
 
   function ResetLP() {
@@ -57,21 +55,27 @@ export default function Calculator() {
   }
 
   function AddExpression(signal: string) {
-    signal.includes('+') ? setExpression('+') : setExpression('-')
+    setCalculate(signal += calculate)
   }
 
-  function AddNumber(value: number) {
+  function AddNumber(value: string) {
     let toCalculate = calculate
     setCalculate(toCalculate += value);
   }
 
   function Calculate() {
-    if (expression.includes('+')) {
-      playerSelected === 1 ? setPlayerOneLP(Number(playerOneLP + calculate)) : setPlayerTwoLP(Number(playerTwoLP + calculate))
-    } else {
-      playerSelected === 1 ? setPlayerOneLP(Number(playerOneLP - calculate)) : setPlayerTwoLP(Number(playerTwoLP - calculate))
+    const matches = calculate.match(/([-+]?)(\d+)/)
+    switch (matches?.[1]) {
+      case "+":
+        playerSelected === 1 ? setPlayerOneLP(Number(matches?.[2]) + playerOneLP) : setPlayerTwoLP(Number(matches?.[2]) + playerTwoLP)
+        break;
+      case "-":
+        playerSelected === 1 ? setPlayerOneLP(playerOneLP - Number(matches?.[2])) : setPlayerTwoLP(playerTwoLP - Number(matches?.[2]))
+        break;
+      default:
+        break;
     }
-    Reset();
+    Reset()
   }
 
   return (
@@ -135,11 +139,9 @@ export default function Calculator() {
       <Center w={"100%"} h={"100%"} gap={2} flexDirection={"column"}>
         <Input
           m={"0.65rem 0 0.65rem 0"}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"center"}
+          textAlign={"center"}
           h={"3.5rem"}
-          p={"2"}
+          p={"1 auto"}
           fontSize="4xl"
           color={"black.900"}
           bg={"gray.200"}
@@ -192,7 +194,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(1)}
+            onClick={() => AddNumber("1")}
           >
             <NumberOne weight="bold" size={24} />
           </Button>
@@ -201,7 +203,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(2)}
+            onClick={() => AddNumber("2")}
           >
             <NumberTwo weight="bold" size={24} />
           </Button>
@@ -210,7 +212,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(3)}
+            onClick={() => AddNumber("3")}
           >
             <NumberThree weight="bold" size={24} />
           </Button>
@@ -219,7 +221,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(4)}
+            onClick={() => AddNumber("4")}
           >
             <NumberFour weight="bold" size={24} />
           </Button>
@@ -230,7 +232,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(5)}
+            onClick={() => AddNumber("5")}
           >
             <NumberFive weight="bold" size={24} />
           </Button>
@@ -239,7 +241,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(6)}
+            onClick={() => AddNumber("6")}
           >
             <NumberSix weight="bold" size={24} />
           </Button>
@@ -248,7 +250,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(7)}
+            onClick={() => AddNumber("7")}
           >
             <NumberSeven weight="bold" size={24} />
           </Button>
@@ -257,7 +259,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(8)}
+            onClick={() => AddNumber("8")}
           >
             <NumberEight weight="bold" size={24} />
           </Button>
@@ -268,7 +270,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(9)}
+            onClick={() => AddNumber("9")}
           >
             <NumberNine weight="bold" size={24} />
           </Button>
@@ -277,7 +279,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(0)}
+            onClick={() => AddNumber("0")}
           >
             <NumberZero weight="bold" size={24} />
           </Button>
@@ -286,7 +288,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(Number("00"))}
+            onClick={() => AddNumber("00")}
           >
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />
@@ -296,7 +298,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber(Number("000"))}
+            onClick={() => AddNumber("000")}
           >
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />
