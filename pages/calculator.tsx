@@ -6,6 +6,7 @@ import {
   Center,
   Container,
   Heading,
+  Input,
   Text
 } from "@chakra-ui/react";
 import {
@@ -36,7 +37,8 @@ export default function Calculator() {
   const [playerSelected, setPlayerSelected] = useState(1);
   const [playerOneLP, setPlayerOneLP] = useState(8000);
   const [playerTwoLP, setPlayerTwoLP] = useState(8000);
-  const [calculate, setCalculate] = useState("");
+  const [expression, setExpression] = useState("");
+  const [calculate, setCalculate] = useState(0);
   const playerOne = "João Pedro";
   const playerTwo = "Alex";
 
@@ -45,7 +47,8 @@ export default function Calculator() {
   }
 
   function Reset() {
-    setCalculate("");
+    setExpression("");
+    setCalculate(0);
   }
 
   function ResetLP() {
@@ -54,23 +57,21 @@ export default function Calculator() {
   }
 
   function AddExpression(signal: string) {
-    let valueToCalculate = calculate;
-    setCalculate((signal += valueToCalculate));
+    signal.includes('+') ? setExpression('+') : setExpression('-')
   }
 
-  function AddNumber(value: string) {
-    let valueToCalculate = calculate;
-    setCalculate((valueToCalculate += value));
+  function AddNumber(value: number) {
+    let toCalculate = calculate
+    setCalculate(toCalculate += value);
   }
 
   function Calculate() {
-    const result = `${
-      playerSelected === 1 ? playerOneLP : playerTwoLP
-    }${calculate}`;
+    if (expression.includes('+')) {
+      playerSelected === 1 ? setPlayerOneLP(Number(playerOneLP + calculate)) : setPlayerTwoLP(Number(playerTwoLP + calculate))
+    } else {
+      playerSelected === 1 ? setPlayerOneLP(Number(playerOneLP - calculate)) : setPlayerTwoLP(Number(playerTwoLP - calculate))
+    }
     Reset();
-    playerSelected === 1
-      ? setPlayerOneLP(eval(result))
-      : setPlayerTwoLP(eval(result));
   }
 
   return (
@@ -92,7 +93,7 @@ export default function Calculator() {
       >
         <Box ml={"0"} mr={"5"}>
           <Link href="/">
-            <CaretLeft weight="bold" size={24} color={"#fff"} />
+            <CaretLeft weight="bold" size={32} color={"#fff"} />
           </Link>
         </Box>
         <Stopwatch w={"100%"} />
@@ -132,14 +133,20 @@ export default function Calculator() {
         </Heading>
       </Center>
       <Center w={"100%"} h={"100%"} gap={2} flexDirection={"column"}>
-        <Text
+        <Input
           m={"0.65rem 0 0.65rem 0"}
-          fontSize="2xl"
-          color={"gray.50"}
-          alignSelf={"center"}
-        >
-          {calculate}
-        </Text>
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          h={"3.5rem"}
+          p={"2"}
+          fontSize="4xl"
+          color={"black.900"}
+          bg={"gray.200"}
+          border={"transparent"}
+          value={calculate}
+          disabled
+        />
         <ButtonGroup w={"100%"} h={"100%"}>
           <Button
             rounded={"md"}
@@ -185,7 +192,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("1")}
+            onClick={() => AddNumber(1)}
           >
             <NumberOne weight="bold" size={24} />
           </Button>
@@ -194,7 +201,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("2")}
+            onClick={() => AddNumber(2)}
           >
             <NumberTwo weight="bold" size={24} />
           </Button>
@@ -203,7 +210,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("3")}
+            onClick={() => AddNumber(3)}
           >
             <NumberThree weight="bold" size={24} />
           </Button>
@@ -212,7 +219,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("4")}
+            onClick={() => AddNumber(4)}
           >
             <NumberFour weight="bold" size={24} />
           </Button>
@@ -223,7 +230,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("5")}
+            onClick={() => AddNumber(5)}
           >
             <NumberFive weight="bold" size={24} />
           </Button>
@@ -232,7 +239,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("6")}
+            onClick={() => AddNumber(6)}
           >
             <NumberSix weight="bold" size={24} />
           </Button>
@@ -241,7 +248,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("7")}
+            onClick={() => AddNumber(7)}
           >
             <NumberSeven weight="bold" size={24} />
           </Button>
@@ -250,7 +257,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("8")}
+            onClick={() => AddNumber(8)}
           >
             <NumberEight weight="bold" size={24} />
           </Button>
@@ -261,7 +268,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("9")}
+            onClick={() => AddNumber(9)}
           >
             <NumberNine weight="bold" size={24} />
           </Button>
@@ -270,7 +277,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("0")}
+            onClick={() => AddNumber(0)}
           >
             <NumberZero weight="bold" size={24} />
           </Button>
@@ -279,7 +286,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("00")}
+            onClick={() => AddNumber(Number("00"))}
           >
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />
@@ -289,7 +296,7 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("000")}
+            onClick={() => AddNumber(Number("000"))}
           >
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />

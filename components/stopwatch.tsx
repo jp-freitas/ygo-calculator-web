@@ -1,5 +1,6 @@
-import { Center, ChakraProps, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Center, ChakraProps, Flex, Text } from "@chakra-ui/react";
 import { differenceInMilliseconds } from "date-fns";
+import { ArrowCounterClockwise, Play } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 export default function Stopwatch({ ...props }: ChakraProps) {
@@ -36,12 +37,28 @@ export default function Stopwatch({ ...props }: ChakraProps) {
   }, [active, time, initialDate, millisecondsPassed, currentMilliseconds,]);
 
   return (
-    <Center>
-      <Text color={"#fff"} fontSize={"2.4rem"}>
+    <Flex align={"center"} justify={"space-between"} w={"100%"}>
+      <Text color={"#fff"} fontSize={"2.4rem"} ml="6">
         {("0" + Math.floor((currentMilliseconds / 60000) % 60)).slice(-2)}:
         {("0" + Math.floor((currentMilliseconds / 1000) % 60)).slice(-2)}:
         {("0" + Math.floor((currentMilliseconds / 10) % 100)).slice(-2)}
       </Text>
-    </Center>
+      <ButtonGroup>
+        <Button
+          bg={"blackAlpha.900"}
+          color={"gray.400"}
+          onClick={() => { /** Starts the counter */ }}
+        >
+          <Play weight="bold" size={24} />
+        </Button>
+        <Button
+          bg={"blackAlpha.900"}
+          color={"gray.400"}
+          onClick={() => { /** Reset the counter */ }}
+        >
+          <ArrowCounterClockwise weight="bold" size={24} />
+        </Button>
+      </ButtonGroup>
+    </Flex>
   );
 }
