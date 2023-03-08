@@ -198,27 +198,27 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("1")}
+            onClick={() => AddNumber("7")}
           >
-            <NumberOne weight="bold" size={24} />
+            <NumberSeven weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("2")}
+            onClick={() => AddNumber("8")}
           >
-            <NumberTwo weight="bold" size={24} />
+            <NumberEight weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("3")}
+            onClick={() => AddNumber("9")}
           >
-            <NumberThree weight="bold" size={24} />
+            <NumberNine weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
@@ -254,18 +254,18 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("7")}
+            onClick={() => AddNumber("1")}
           >
-            <NumberSeven weight="bold" size={24} />
+            <NumberOne weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("8")}
+            onClick={() => AddNumber("2")}
           >
-            <NumberEight weight="bold" size={24} />
+            <NumberTwo weight="bold" size={24} />
           </Button>
         </ButtonGroup>
         <ButtonGroup w={"100%"} h={"100%"}>
@@ -274,9 +274,9 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("9")}
+            onClick={() => AddNumber("3")}
           >
-            <NumberNine weight="bold" size={24} />
+            <NumberThree weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
