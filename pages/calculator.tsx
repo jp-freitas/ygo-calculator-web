@@ -12,8 +12,10 @@ import {
 import {
   ArrowCounterClockwise,
   ArrowUUpLeft,
+  Backspace,
   CaretLeft,
   CaretRight,
+  Copyright,
   Divide,
   Equals,
   Minus,
@@ -55,12 +57,31 @@ export default function Calculator() {
   }
 
   function AddExpression(signal: string) {
-    setCalculate(signal += calculate)
+    if (calculate.includes(signal)) {
+      return
+    } else {
+      setCalculate(signal += calculate)
+    }
   }
 
   function AddNumber(value: string) {
     let toCalculate = calculate
-    setCalculate(toCalculate += value);
+    setCalculate(toCalculate += value)
+  }
+
+  function ResetInput() {
+    setCalculate("")
+  }
+
+  function DivideByTwo() {
+    playerSelected === 1 ? setPlayerOneLP(playerOneLP / 2) : setPlayerTwoLP(playerTwoLP / 2)
+  }
+
+  function DeletLastInputString() {
+    const arrayFromEachElementInString = calculate.split('')
+    const removeTheLastItemFromArray = arrayFromEachElementInString.slice(0, -1)
+    const convertTheArrayIntoString = removeTheLastItemFromArray.join("")
+    setCalculate(convertTheArrayIntoString)
   }
 
   function Calculate() {
@@ -141,18 +162,39 @@ export default function Calculator() {
         </Heading>
       </Center>
       <Center w={"100%"} h={"100%"} gap={2} flexDirection={"column"}>
-        <Input
-          m={"0.65rem 0 0.65rem 0"}
-          textAlign={"center"}
-          h={"3.5rem"}
-          p={"1 auto"}
-          fontSize="4xl"
-          color={"black.900"}
-          bg={"gray.200"}
-          border={"transparent"}
-          value={calculate}
-          disabled
-        />
+        <Box w={"100%"} h={"100%"} display="flex" alignItems="center" justifyContent="space-between">
+          <Input
+            m={"0.65rem 0.65rem 0 0"}
+            textAlign={"center"}
+            h={"80%"}
+            p={"1 auto"}
+            fontSize="4xl"
+            color={"black.900"}
+            bg={"gray.200"}
+            border={"transparent"}
+            value={calculate}
+            disabled
+          />
+          <ButtonGroup h={"80%"} m={"0.65rem 0 0 0"}>
+            <Button
+              bg={"blackAlpha.900"}
+              color={"gray.400"}
+              onClick={DeletLastInputString}
+              h={"100%"}
+            >
+              <Backspace size={32} weight="bold" />
+            </Button>
+            <Button
+              bg={"blackAlpha.900"}
+              color={"gray.400"}
+              onClick={ResetInput}
+              h={"100%"}
+              w={"50%"}
+            >
+              <Text fontSize={"2xl"} fontWeight={"bold"}>C</Text>
+            </Button>
+          </ButtonGroup>
+        </Box>
         <ButtonGroup w={"100%"} h={"100%"}>
           <Button
             rounded={"md"}
@@ -225,12 +267,21 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("4")}
+            onClick={DivideByTwo}
           >
-            <NumberFour weight="bold" size={24} />
+            <Divide weight="bold" size={24} />
           </Button>
         </ButtonGroup>
         <ButtonGroup w={"100%"} h={"100%"}>
+          <Button
+            w={"100%"}
+            h={"100%"}
+            bg={"blackAlpha.900"}
+            color={"gray.400"}
+            onClick={() => AddNumber("6")}
+          >
+            <NumberSix weight="bold" size={24} />
+          </Button>
           <Button
             w={"100%"}
             h={"100%"}
@@ -245,10 +296,20 @@ export default function Calculator() {
             h={"100%"}
             bg={"blackAlpha.900"}
             color={"gray.400"}
-            onClick={() => AddNumber("6")}
+            onClick={() => AddNumber("4")}
           >
-            <NumberSix weight="bold" size={24} />
+            <NumberFour weight="bold" size={24} />
           </Button>
+          <Button
+            w={"100%"}
+            h={"100%"}
+            bg={"blackAlpha.900"}
+            color={"gray.400"}
+          >
+            <ArrowUUpLeft weight="bold" size={24} />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup w={"100%"} h={"100%"}>
           <Button
             w={"100%"}
             h={"100%"}
@@ -267,8 +328,6 @@ export default function Calculator() {
           >
             <NumberTwo weight="bold" size={24} />
           </Button>
-        </ButtonGroup>
-        <ButtonGroup w={"100%"} h={"100%"}>
           <Button
             w={"100%"}
             h={"100%"}
@@ -278,6 +337,16 @@ export default function Calculator() {
           >
             <NumberThree weight="bold" size={24} />
           </Button>
+          <Button
+            w={"100%"}
+            h={"100%"}
+            bg={"blackAlpha.900"}
+            color={"gray.400"}
+          >
+            <Queue weight="bold" size={24} />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup w={"100%"} h={"100%"}>
           <Button
             w={"100%"}
             h={"100%"}
@@ -307,32 +376,6 @@ export default function Calculator() {
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />
             <NumberZero weight="bold" size={24} />
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup w={"100%"} h={"100%"}>
-          <Button
-            w={"100%"}
-            h={"100%"}
-            bg={"blackAlpha.900"}
-            color={"gray.400"}
-          >
-            <Divide weight="bold" size={24} />
-          </Button>
-          <Button
-            w={"100%"}
-            h={"100%"}
-            bg={"blackAlpha.900"}
-            color={"gray.400"}
-          >
-            <ArrowUUpLeft weight="bold" size={24} />
-          </Button>
-          <Button
-            w={"100%"}
-            h={"100%"}
-            bg={"blackAlpha.900"}
-            color={"gray.400"}
-          >
-            <Queue weight="bold" size={24} />
           </Button>
           <Button
             w={"100%"}
