@@ -133,6 +133,7 @@ export default function Calculator() {
           m={"0.65rem 0 0.65rem 0"}
           display={"flex"}
           flexDirection={"column"}
+          onClick={() => togglePlayerSelected(1)}
         >
           <Text
             color={`${playerSelected === 1 ? "#fff" : "gray.400"}`}
@@ -149,6 +150,7 @@ export default function Calculator() {
           m={"0.65rem 0 0.65rem 0"}
           display={"flex"}
           flexDirection={"column"}
+          onClick={() => togglePlayerSelected(2)}
         >
           <Text
             color={`${playerSelected === 2 ? "#fff" : "gray.400"}`}
