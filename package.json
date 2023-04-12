@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@radix-ui/react-dialog": "^1.0.3",
     "date-fns": "^2.29.3",
     "framer-motion": "^6",
     "howler": "^2.2.3",

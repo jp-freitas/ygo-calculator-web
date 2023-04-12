@@ -104,8 +104,7 @@ export default function Calculator() {
   }
 
   return (
-    <Container
-      maxW={"100vw"}
+    <Container maxW={"100vw"}
       h={"100vh"}
       display={"flex"}
       p={2}
