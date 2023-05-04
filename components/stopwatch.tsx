@@ -1,6 +1,6 @@
-import { Button, ButtonGroup, Center, ChakraProps, Flex, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, ChakraProps, Flex, Text } from "@chakra-ui/react";
 import { differenceInMilliseconds } from "date-fns";
-import { ArrowCounterClockwise, Play } from "phosphor-react";
+import { Play } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 export default function Stopwatch({ ...props }: ChakraProps) {
