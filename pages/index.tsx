@@ -5,10 +5,13 @@ import {
   Heading,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useContext } from "react";
 import { DuelModal } from "../components/duelmodal";
+import { DuelistContext } from "../contexts/DuelistsContext";
 
 export default function Home() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { duel, setDuel } = useContext(DuelistContext);
 
   return (
     <Container maxW={"100vw"} h={"100vh"} p={"2"} bg={"gray.900"}>
@@ -22,6 +25,8 @@ export default function Home() {
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
+        duel={duel}
+        setDuel={setDuel}
       />
     </Container>
   );

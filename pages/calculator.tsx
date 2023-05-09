@@ -32,16 +32,16 @@ import {
   Plus,
   Queue
 } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Stopwatch from "../components/stopwatch";
+import { DuelistContext } from "../contexts/DuelistsContext";
 
 export default function Calculator() {
   const [playerSelected, setPlayerSelected] = useState(1);
   const [playerOneLP, setPlayerOneLP] = useState(8000);
   const [playerTwoLP, setPlayerTwoLP] = useState(8000);
   const [calculate, setCalculate] = useState("");
-  const playerOne = "João Pedro";
-  const playerTwo = "Alex";
+  const { duel } = useContext(DuelistContext);
 
   function togglePlayerSelected(player: number) {
     setPlayerSelected(player);
@@ -133,12 +133,15 @@ export default function Calculator() {
           display={"flex"}
           flexDirection={"column"}
           onClick={() => togglePlayerSelected(1)}
+          p={"0.65rem 0 0.65rem 0.65rem"}
+          bg={`${playerSelected === 1 ? "blackAlpha.900" : ""}`}
         >
           <Text
             color={`${playerSelected === 1 ? "#fff" : "gray.400"}`}
             alignSelf={"start"}
+            fontSize='2xl'
           >
-            {playerOne}
+            {duel.firstDuelist}
           </Text>
           <Text color={"gray.50"} alignSelf={"start"}>
             {playerOneLP}
@@ -147,15 +150,18 @@ export default function Calculator() {
         <Heading
           w={"100%"}
           m={"0.65rem 0 0.65rem 0"}
+          p={"0.65rem 0.65rem 0.65rem 0"}
           display={"flex"}
           flexDirection={"column"}
           onClick={() => togglePlayerSelected(2)}
+          bg={`${playerSelected === 2 ? "blackAlpha.900" : ""}`}
         >
           <Text
             color={`${playerSelected === 2 ? "#fff" : "gray.400"}`}
             alignSelf={"end"}
+            fontSize='2xl'
           >
-            {playerTwo}
+            {duel.secondDuelist}
           </Text>
           <Text color={"gray.50"} alignSelf={"end"}>
             {playerTwoLP}

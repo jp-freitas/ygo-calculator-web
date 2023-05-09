@@ -14,19 +14,33 @@ import {
   Select
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 interface DuelModalProps extends UseDisclosureProps {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  duel: Duel;
+  setDuel: Dispatch<SetStateAction<Duel>>;
 }
 
 export function DuelModal({
   isOpen,
   onOpen,
   onClose,
+  duel,
+  setDuel,
 }: DuelModalProps) {
   const router = useRouter()
+
+  function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+    setDuel(
+      prevState => ({
+        ...prevState,
+        [event.target.name]: event.target.value,
+      })
+    )
+  }
 
   function startDuel() {
     onClose();
@@ -43,17 +57,26 @@ export function DuelModal({
           <ModalBody>
             <FormControl mb={"4"}>
               <FormLabel>Duelista 1</FormLabel>
-              <Input type='text' value="João Pedro" />
+              <Select variant='outline' name='firstDuelist' value={duel.firstDuelist} onChange={handleSelectChange}>
+                <option value="0">Selecione um Duelista</option>
+                <option value="João Pedro">João Pedro</option>
+                <option value="Renan Martins">Renan Martins</option>
+                <option value="João Paulo">João Paulo</option>
+                <option value="Paulo César">Paulo César</option>
+                <option value="Gabriel">Gabriel</option>
+                <option value="Alex">Alex</option>
+              </Select>
             </FormControl>
             <FormControl>
               <FormLabel>Duelista 2</FormLabel>
-              <Select variant='outline'>
+              <Select variant='outline' name='secondDuelist' value={duel.secondDuelist} onChange={handleSelectChange}>
                 <option value="0">Selecione um Duelista</option>
-                <option value="1">Renan Martins</option>
-                <option value="2">João Paulo</option>
-                <option value="3">Paulo César</option>
-                <option value="4">Gabriel</option>
-                <option value="5">Alex</option>
+                <option value="João Pedro">João Pedro</option>
+                <option value="Renan Martins">Renan Martins</option>
+                <option value="João Paulo">João Paulo</option>
+                <option value="Paulo César">Paulo César</option>
+                <option value="Gabriel">Gabriel</option>
+                <option value="Alex">Alex</option>
               </Select>
             </FormControl>
           </ModalBody>
