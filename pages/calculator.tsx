@@ -32,16 +32,23 @@ import {
   Plus,
   Queue
 } from "phosphor-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Stopwatch from "../components/stopwatch";
 import { DuelistContext } from "../contexts/DuelistsContext";
 
 export default function Calculator() {
-  const [playerSelected, setPlayerSelected] = useState(1);
-  const [playerOneLP, setPlayerOneLP] = useState(8000);
-  const [playerTwoLP, setPlayerTwoLP] = useState(8000);
-  const [calculate, setCalculate] = useState("");
-  const { duel } = useContext(DuelistContext);
+  const {
+    duel,
+    playerSelected,
+    setPlayerSelected,
+    playerOneLP,
+    setPlayerOneLP,
+    playerTwoLP,
+    setPlayerTwoLP,
+    calculate,
+    setCalculate,
+    currentRound,
+  } = useContext(DuelistContext);
 
   function togglePlayerSelected(player: number) {
     setPlayerSelected(player);
@@ -125,6 +132,12 @@ export default function Calculator() {
           </Link>
         </Box>
         <Stopwatch w={"100%"} />
+        <Text
+          color={"#fff"}
+          fontSize='2xl'
+        >
+          {currentRound}
+        </Text>
       </Center>
       <Center gap={2} w={"100%"}>
         <Heading
