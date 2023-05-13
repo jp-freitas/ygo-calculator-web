@@ -63,8 +63,11 @@ export function DuelModal({
                 <option value="Renan Martins">Renan Martins</option>
                 <option value="João Paulo">João Paulo</option>
                 <option value="Paulo César">Paulo César</option>
-                <option value="Gabriel">Gabriel</option>
-                <option value="Alex">Alex</option>
+                <option value="Alex Gabriel">Alex Gabriel</option>
+                <option value="Alex Pereira">Alex Pereira</option>
+                <option value="Rodrigo Silva">Rodrigo Silva</option>
+                <option value="José Lindoni">José Lindoni</option>
+                <option value="Rogério Silva">Rogério Silva</option>
               </Select>
             </FormControl>
             <FormControl>
@@ -75,8 +78,11 @@ export function DuelModal({
                 <option value="Renan Martins">Renan Martins</option>
                 <option value="João Paulo">João Paulo</option>
                 <option value="Paulo César">Paulo César</option>
-                <option value="Gabriel">Gabriel</option>
-                <option value="Alex">Alex</option>
+                <option value="Alex Gabriel">Alex Gabriel</option>
+                <option value="Alex Pereira">Alex Pereira</option>
+                <option value="Rodrigo Silva">Rodrigo Silva</option>
+                <option value="José Lindoni">José Lindoni</option>
+                <option value="Rogério Silva">Rogério Silva</option>
               </Select>
             </FormControl>
           </ModalBody>
