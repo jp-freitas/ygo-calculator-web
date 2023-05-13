@@ -4,11 +4,11 @@ import { Play } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 export default function Stopwatch({ ...props }: ChakraProps) {
-  const [time, setTime] = useState(2400000)
+  const [time, setTime] = useState(2700000)
   const [active, setActive] = useState(false)
   const [initialDate, setInititalDate] = useState<Date>(new Date())
   const [millisecondsPassed, setMillisecondsPassed] = useState(0)
-  const currentMilliseconds = active ? time - millisecondsPassed : 2400000;
+  const currentMilliseconds = active ? time - millisecondsPassed : 2700000;
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timer | undefined;
@@ -20,7 +20,7 @@ export default function Stopwatch({ ...props }: ChakraProps) {
           new Date(initialDate),
         );
         if (millisecondsDifference >= time) {
-          setTime(2400000)
+          setTime(2700000)
           setActive(!active)
           clearInterval(interval)
         } else {
