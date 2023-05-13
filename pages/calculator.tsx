@@ -132,12 +132,12 @@ export default function Calculator() {
           </Link>
         </Box>
         <Stopwatch w={"100%"} />
-        <Text
+        {/* <Text
           color={"#fff"}
           fontSize='2xl'
         >
           {currentRound}
-        </Text>
+        </Text> */}
       </Center>
       <Center gap={2} w={"100%"}>
         <Heading
